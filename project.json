@@ -1,0 +1,85 @@
+{
+  "name": "nestjs-hcaptcha",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/nestjs-hcaptcha",
+        "main": "./src/index.ts",
+        "tsConfig": "./tsconfig.lib.json",
+        "assets": [
+          {
+            "glob": "*.md",
+            "input": "",
+            "output": ""
+          },
+          {
+            "glob": "LICENSE",
+            "input": "",
+            "output": ""
+          }
+        ],
+        "project": "./package.json",
+        "compiler": "swc",
+        "format": ["cjs", "esm"],
+        "generateExportsField": true,
+        "rollupConfig": "rollup.config.js"
+      }
+    },
+    "local-registry": {
+      "executor": "@nx/js:verdaccio",
+      "options": {
+        "port": 4873,
+        "config": ".verdaccio/config.yml",
+        "storage": "tmp/local-registry/storage"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["./src", "{projectRoot}/package.json"]
+      }
+    },
+    "test": {
+      "cache": true,
+      "inputs": ["default", "^production"],
+      "outputs": ["{options.reportsDirectory}"],
+      "command": "vitest run -c vitest.config.unit.ts"
+    },
+    "e2e": {
+      "cache": true,
+      "inputs": ["default", "^production"],
+      "outputs": ["{options.reportsDirectory}"],
+      "command": "vitest run -c vitest.config.e2e.ts"
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "baseBranch": "main",
+        "preset": "conventionalcommits",
+        "commitMessageFormat": "chore: release version {version} [skip ci]"
+      }
+    },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
+      },
+      "configurations": {
+        "local": {
+          "registry": "http://localhost:4873"
+        },
+        "npm": {
+          "registry": "https://registry.npmjs.org"
+        }
+      },
+      "defaultConfiguration": "local"
+    }
+  },
+  "tags": []
+}
