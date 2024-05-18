@@ -3,10 +3,15 @@
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     },
-    "lint": {
+    "@nx/eslint:lint": {
       "cache": true,
       "inputs": [
         "default",
@@ -17,7 +22,10 @@
     }
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -27,5 +35,6 @@
       "!{projectRoot}/tools/**/*"
     ],
     "sharedGlobals": []
-  }
+  },
+  "useInferencePlugins": false
 }
