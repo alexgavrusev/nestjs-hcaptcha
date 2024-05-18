@@ -26,10 +26,3 @@ updates:
         dependency-type: 'production'
     commit-message:
       prefix: 'chore(deps)'
-    ignore:
-      - dependency-name: 'nx'
-        versions: ['>=19.0.0']
-      - dependency-name: '@nx/*'
-        versions: ['>=19.0.0']
-      - dependency-name: 'eslint'
-        versions: ['>=9.0.0']
