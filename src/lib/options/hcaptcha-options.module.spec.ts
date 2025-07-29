@@ -1,19 +1,20 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { Module } from '@nestjs/common';
+import { describe, expect, it } from "vitest";
+import { Test, TestingModule } from "@nestjs/testing";
+import { Module } from "@nestjs/common";
 
-import {
+import type {
   HcaptchaOptions,
   NormalizedHcaptchaOptions,
-} from './hcaptcha-options.types';
+} from "./hcaptcha-options.types";
 import {
   HcaptchaOptionsModule,
   NORMALIZED_HCAPTCHA_OPTIONS,
-} from './hcaptcha-options.module';
-import { defaultGetCaptchaData } from '../get-captcha-data';
+} from "./hcaptcha-options.module";
+import { defaultGetCaptchaData } from "../get-captcha-data";
 
-describe('HcaptchaOptionsModule', () => {
-  const SECRET = 'secret';
-  const SITEKEY = 'sitekey';
+describe("HcaptchaOptionsModule", () => {
+  const SECRET = "secret";
+  const SITEKEY = "sitekey";
 
   const OPTIONS: HcaptchaOptions = {
     secret: SECRET,
@@ -22,7 +23,7 @@ describe('HcaptchaOptionsModule', () => {
 
   const assertNormalizedOptions = (moduleRef: TestingModule) => {
     const options = moduleRef.get<NormalizedHcaptchaOptions>(
-      NORMALIZED_HCAPTCHA_OPTIONS
+      NORMALIZED_HCAPTCHA_OPTIONS,
     );
 
     expect(options.secret).toBe(SECRET);
@@ -30,8 +31,8 @@ describe('HcaptchaOptionsModule', () => {
     expect(options.getCaptchaData).toBe(defaultGetCaptchaData);
   };
 
-  describe('forRoot', () => {
-    it('should normalize options', async () => {
+  describe("forRoot", () => {
+    it("should normalize options", async () => {
       const moduleRef = await Test.createTestingModule({
         imports: [HcaptchaOptionsModule.forRoot(OPTIONS)],
       }).compile();
@@ -40,15 +41,15 @@ describe('HcaptchaOptionsModule', () => {
     });
   });
 
-  describe('forRootAsync', () => {
+  describe("forRootAsync", () => {
     class OptionsFactory {
       create(): HcaptchaOptions {
         return OPTIONS;
       }
     }
 
-    describe('useClass', () => {
-      it('should normalize options', async () => {
+    describe("useClass", () => {
+      it("should normalize options", async () => {
         const moduleRef = await Test.createTestingModule({
           imports: [
             HcaptchaOptionsModule.forRootAsync({
@@ -61,8 +62,8 @@ describe('HcaptchaOptionsModule', () => {
       });
     });
 
-    describe('useExisting', () => {
-      it('should normalize options', async () => {
+    describe("useExisting", () => {
+      it("should normalize options", async () => {
         @Module({
           providers: [OptionsFactory],
           exports: [OptionsFactory],
@@ -82,8 +83,8 @@ describe('HcaptchaOptionsModule', () => {
       });
     });
 
-    describe('useFactory', () => {
-      it('should normalize options', async () => {
+    describe("useFactory", () => {
+      it("should normalize options", async () => {
         const moduleRef = await Test.createTestingModule({
           imports: [
             HcaptchaOptionsModule.forRootAsync({

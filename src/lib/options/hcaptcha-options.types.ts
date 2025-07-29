@@ -1,4 +1,4 @@
-import { GetCaptchaData } from '../get-captcha-data';
+import type { GetCaptchaData } from '../get-captcha-data';
 
 export type HcaptchaOptions = {
   secret: string;

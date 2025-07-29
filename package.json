@@ -5,62 +5,57 @@
   "author": "Alex Gavrusev <alex@gavrusev.dev>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexgavrusev/nestjs-hcaptcha.git"
+    "url": "git+https://github.com/alexgavrusev/nestjs-hcaptcha.git"
   },
   "homepage": "https://github.com/alexgavrusev/nestjs-hcaptcha#readme",
   "bugs": {
     "url": "https://github.com/alexgavrusev/nestjs-hcaptcha/issues"
   },
+  "type": "commonjs",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "prepare": "node -e \"if(require('fs').existsSync('.git')){/* proceed only if .git is found */ process.exit(1)}\" || is-ci || husky install"
-  },
-  "dependencies": {
-    "@swc/helpers": "~0.5.2"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
-    "@gvrs-nx/ts-package": "0.3.0",
-    "@jscutlery/semver": "^5.2.2",
-    "@nestjs/common": "10.3.8",
-    "@nestjs/platform-express": "10.3.8",
-    "@nestjs/testing": "10.3.8",
-    "@nx/eslint": "18.3.5",
-    "@nx/eslint-plugin": "18.3.5",
-    "@nx/js": "18.3.5",
-    "@nx/rollup": "18.3.5",
-    "@nx/vite": "18.3.5",
-    "@nx/workspace": "18.3.5",
-    "@swc-node/register": "~1.9.1",
-    "@swc/cli": "~0.3.12",
-    "@swc/core": "~1.5.7",
-    "@types/express": "4.17.21",
-    "@types/node": "20.12.12",
-    "@types/supertest": "6.0.2",
-    "@typescript-eslint/eslint-plugin": "^7.9.0",
-    "@typescript-eslint/parser": "^7.9.0",
-    "@vitest/coverage-v8": "~1.6.0",
-    "@vitest/ui": "~1.6.0",
-    "eslint": "~8.57.0",
-    "eslint-config-prettier": "^9.0.0",
-    "hcaptcha": "0.1.1",
-    "husky": "^9.0.11",
-    "is-ci": "^3.0.0",
-    "nock": "13.5.4",
-    "nx": "18.3.5",
-    "prettier": "^3.2.5",
-    "supertest": "7.0.0",
-    "tslib": "^2.3.0",
-    "typescript": "~5.4.5",
-    "unplugin-swc": "1.4.5",
-    "verdaccio": "^5.0.4",
-    "vite": "^5.0.0",
-    "vitest": "1.6.0",
-    "vitest-mock-extended": "1.3.1"
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest",
+    "e2e": "vitest --config vitest.config.e2e.ts",
+    "lint": "oxlint --deny-warnings",
+    "lint:fix": "pnpm run lint --fix",
+    "format": "prettier --cache --write .",
+    "release": "bumpp && pnpm publish",
+    "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
-    "@nestjs/common": "^10.0.0",
-    "hcaptcha": "~0.1.1"
+    "@nestjs/common": "^11.0.0",
+    "hcaptcha": "~0.2.0"
   },
-  "sideEffects": false
+  "devDependencies": {
+    "@nestjs/common": "^11.1.5",
+    "@nestjs/platform-express": "^11.1.5",
+    "@nestjs/testing": "^11.1.5",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.1.0",
+    "@types/supertest": "^6.0.3",
+    "@vitest/coverage-v8": "3.2.4",
+    "changelogithub": "^13.16.0",
+    "hcaptcha": "^0.2.0",
+    "nock": "^14.0.7",
+    "oxlint": "^1.9.0",
+    "pkg-pr-new": "^0.0.54",
+    "prettier": "^3.6.2",
+    "supertest": "^7.1.4",
+    "tsdown": "^0.13.0",
+    "unplugin-swc": "^1.5.5",
+    "vitest": "^3.2.4",
+    "vitest-mock-extended": "^3.1.0"
+  },
+  "sideEffects": false,
+  "packageManager": "pnpm@10.13.1"
 }

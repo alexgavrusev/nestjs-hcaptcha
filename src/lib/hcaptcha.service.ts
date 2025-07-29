@@ -1,19 +1,22 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { verify } from 'hcaptcha';
+import { Injectable, Inject } from "@nestjs/common";
+import { verify } from "hcaptcha";
 
-import { NORMALIZED_HCAPTCHA_OPTIONS } from './options';
-import type { NormalizedHcaptchaOptions } from './options';
-import { HcaptchaException } from './hcaptcha.exception';
-import { VerifyResponse } from './typings';
+import { NORMALIZED_HCAPTCHA_OPTIONS } from "./options";
+import type { NormalizedHcaptchaOptions } from "./options";
+import { HcaptchaException } from "./hcaptcha.exception";
+import type { VerifyResponse } from "./typings";
 
 @Injectable()
 export class HcaptchaService {
   constructor(
     @Inject(NORMALIZED_HCAPTCHA_OPTIONS)
-    private readonly options: NormalizedHcaptchaOptions
+    private readonly options: NormalizedHcaptchaOptions,
   ) {}
 
-  async verifyCaptcha(token: string, remoteip?: string) {
+  async verifyCaptcha(
+    token: string,
+    remoteip?: string,
+  ): Promise<VerifyResponse> {
     let verifyResponse: VerifyResponse;
 
     try {
@@ -21,7 +24,7 @@ export class HcaptchaService {
         this.options.secret,
         token,
         remoteip,
-        this.options.sitekey
+        this.options.sitekey,
       );
     } catch (e) {
       throw new HcaptchaException(e);

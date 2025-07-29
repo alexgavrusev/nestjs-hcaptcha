@@ -1,10 +1,11 @@
-import { ExecutionContext } from '@nestjs/common';
-import { mockDeep } from 'vitest-mock-extended';
+import { vi, describe, it, expect } from "vitest";
+import { mockDeep } from "vitest-mock-extended";
+import type { ExecutionContext } from "@nestjs/common";
 
-import { HcaptchaException } from '../hcaptcha.exception';
-import { defaultGetCaptchaData } from './get-captcha-data';
+import { HcaptchaException } from "../hcaptcha.exception";
+import { defaultGetCaptchaData } from "./get-captcha-data";
 
-describe('defaultGetCaptchaData', () => {
+describe("defaultGetCaptchaData", () => {
   const createContext = (body: Record<string, unknown>) =>
     mockDeep<ExecutionContext>({
       switchToHttp: vi.fn().mockReturnValue({
@@ -14,11 +15,11 @@ describe('defaultGetCaptchaData', () => {
       }),
     });
 
-  it('should get token from `h-captcha-response` request.body field', () => {
-    const token = '10000000-aaaa-bbbb-cccc-000000000001';
+  it("should get token from `h-captcha-response` request.body field", () => {
+    const token = "10000000-aaaa-bbbb-cccc-000000000001";
 
     const executionContext = createContext({
-      'h-captcha-response': token,
+      "h-captcha-response": token,
     });
 
     expect(defaultGetCaptchaData(executionContext)).toEqual({
@@ -26,11 +27,11 @@ describe('defaultGetCaptchaData', () => {
     });
   });
 
-  it('should throw error when there is no `h-captcha-response` request.body field', () => {
+  it("should throw error when there is no `h-captcha-response` request.body field", () => {
     const executionContext = createContext({});
 
     expect(() => defaultGetCaptchaData(executionContext)).toThrowError(
-      HcaptchaException
+      HcaptchaException,
     );
   });
 });

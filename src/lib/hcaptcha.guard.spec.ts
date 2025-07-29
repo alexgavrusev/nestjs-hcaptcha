@@ -1,13 +1,14 @@
-import { DeepMockProxy, mockDeep } from 'vitest-mock-extended';
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { type DeepMockProxy, mockDeep } from "vitest-mock-extended";
 
-import { HcaptchaGuard } from './hcaptcha.guard';
-import { HcaptchaService } from './hcaptcha.service';
-import { NormalizedHcaptchaOptions } from './options';
-import { defaultGetCaptchaData } from './get-captcha-data';
-import { ExecutionContext } from '@nestjs/common';
-import { HcaptchaException } from './hcaptcha.exception';
+import { HcaptchaGuard } from "./hcaptcha.guard";
+import { HcaptchaService } from "./hcaptcha.service";
+import type { NormalizedHcaptchaOptions } from "./options";
+import { defaultGetCaptchaData } from "./get-captcha-data";
+import type { ExecutionContext } from "@nestjs/common";
+import { HcaptchaException } from "./hcaptcha.exception";
 
-describe('HcaptchaGuard', () => {
+describe("HcaptchaGuard", () => {
   let executionContext: DeepMockProxy<ExecutionContext>;
   let guard: HcaptchaGuard;
   let service: DeepMockProxy<HcaptchaService>;
@@ -17,7 +18,7 @@ describe('HcaptchaGuard', () => {
     executionContext = mockDeep<ExecutionContext>();
 
     options = {
-      secret: 'secret',
+      secret: "secret",
       getCaptchaData: defaultGetCaptchaData,
     };
 
@@ -26,8 +27,8 @@ describe('HcaptchaGuard', () => {
     guard = new HcaptchaGuard(options, service);
   });
 
-  it('should return true if service returns a successful response', async () => {
-    vi.spyOn(options, 'getCaptchaData').mockReturnValue({ token: 'token' });
+  it("should return true if service returns a successful response", async () => {
+    vi.spyOn(options, "getCaptchaData").mockReturnValue({ token: "token" });
     service.verifyCaptcha.mockResolvedValue({ success: true });
 
     const result = await guard.canActivate(executionContext);
@@ -35,11 +36,11 @@ describe('HcaptchaGuard', () => {
     expect(result).toBe(true);
   });
 
-  it('should call service with token and remoteip', async () => {
-    const token = 'token';
-    const remoteip = 'remoteip';
+  it("should call service with token and remoteip", async () => {
+    const token = "token";
+    const remoteip = "remoteip";
 
-    vi.spyOn(options, 'getCaptchaData').mockReturnValue({ token, remoteip });
+    vi.spyOn(options, "getCaptchaData").mockReturnValue({ token, remoteip });
     service.verifyCaptcha.mockResolvedValue({ success: true });
 
     await guard.canActivate(executionContext);
@@ -48,20 +49,20 @@ describe('HcaptchaGuard', () => {
     expect(service.verifyCaptcha).toHaveBeenCalledWith(token, remoteip);
   });
 
-  it('should throw error if getCaptchaData throws', async () => {
-    const error = new HcaptchaException(new Error('getCaptchaData error'));
+  it("should throw error if getCaptchaData throws", async () => {
+    const error = new HcaptchaException(new Error("getCaptchaData error"));
 
-    vi.spyOn(options, 'getCaptchaData').mockImplementation(() => {
+    vi.spyOn(options, "getCaptchaData").mockImplementation(() => {
       throw error;
     });
 
     await expect(guard.canActivate(executionContext)).rejects.toEqual(error);
   });
 
-  it('should throw error if service throws', async () => {
-    const error = new HcaptchaException(new Error('service error'));
+  it("should throw error if service throws", async () => {
+    const error = new HcaptchaException(new Error("service error"));
 
-    vi.spyOn(options, 'getCaptchaData').mockReturnValue({ token: 'token' });
+    vi.spyOn(options, "getCaptchaData").mockReturnValue({ token: "token" });
 
     service.verifyCaptcha.mockRejectedValue(error);
 
