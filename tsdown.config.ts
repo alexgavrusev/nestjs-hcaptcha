@@ -5,8 +5,6 @@ export default defineConfig({
   platform: "node",
   format: "commonjs",
   exports: true,
-  dts: {
-    isolatedDeclarations: true,
-  },
+  dts: true,
   sourcemap: true,
 });
