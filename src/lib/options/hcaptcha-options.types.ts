@@ -1,4 +1,4 @@
-import type { GetCaptchaData } from '../get-captcha-data';
+import type { GetCaptchaData } from "../get-captcha-data";
 
 export type HcaptchaOptions = {
   secret: string;
@@ -7,6 +7,6 @@ export type HcaptchaOptions = {
 };
 
 export type NormalizedHcaptchaOptions = Required<
-  Pick<HcaptchaOptions, 'getCaptchaData'>
+  Pick<HcaptchaOptions, "getCaptchaData">
 > &
   HcaptchaOptions;

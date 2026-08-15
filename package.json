@@ -26,9 +26,11 @@
     "dev": "tsdown --watch",
     "test": "vitest",
     "e2e": "vitest --config vitest.config.e2e.ts",
+    "typecheck": "tsc --noEmit",
     "lint": "oxlint --deny-warnings",
     "lint:fix": "pnpm run lint --fix",
-    "format": "prettier --cache --write .",
+    "format:write": "prettier --cache --write .",
+    "format:check": "prettier --cache --check .",
     "release": "bumpp && pnpm publish",
     "prepublishOnly": "pnpm run build"
   },

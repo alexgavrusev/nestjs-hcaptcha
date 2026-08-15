@@ -1,1 +1,1 @@
-export * from './get-captcha-data';
+export * from "./get-captcha-data";
