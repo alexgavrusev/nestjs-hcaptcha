@@ -16,7 +16,7 @@ First, provide the options in the root `AppModule`:
 @Module({
   imports: [
     HcaptchaModule.forRoot({
-      secret: 'YOUR_HCAPTCHA_SECRET',
+      secret: "YOUR_HCAPTCHA_SECRET",
     }),
   ],
 })
@@ -36,9 +36,9 @@ export class UsersModule {}
 Finally, decorate the controller method with `@VerifyCaptcha()`:
 
 ```ts
-@Controller('users')
+@Controller("users")
 class UsersController {
-  @Post('register')
+  @Post("register")
   @VerifyCaptcha()
   register() {}
 }
@@ -54,8 +54,8 @@ Provide the `sitekey` option in the root `HcaptchaModule`:
 @Module({
   imports: [
     HcaptchaModule.forRoot({
-      secret: 'YOUR_HCAPTCHA_SECRET',
-      sitekey: 'YOUR_SITEKEY',
+      secret: "YOUR_HCAPTCHA_SECRET",
+      sitekey: "YOUR_SITEKEY",
     }),
   ],
 })
@@ -70,12 +70,12 @@ If you want to customize the retrieval of the hCaptcha token and/or the user's I
 @Module({
   imports: [
     HcaptchaModule.forRoot({
-      secret: 'YOUR_HCAPTCHA_SECRET',
+      secret: "YOUR_HCAPTCHA_SECRET",
       getCaptchaData: (ctx) => {
         const request = ctx.switchToHttp().getRequest();
 
-        const token = request.body['token'];
-        const remoteip = request.headers['x-forwarded-for'];
+        const token = request.body["token"];
+        const remoteip = request.headers["x-forwarded-for"];
 
         return { token, remoteip };
       },
@@ -99,7 +99,7 @@ class HcaptchaExceptionFilter implements ExceptionFilter {
 
     response.status(status).json({
       statusCode: status,
-      message: 'Invalid captcha',
+      message: "Invalid captcha",
     });
   }
 }
@@ -110,14 +110,14 @@ class HcaptchaExceptionFilter implements ExceptionFilter {
 If you don't want to, or cannot use the `@VerifyCaptha()` decorator or the `HcaptchaGuard`, you can verify the captcha by using the `HcaptchaService`:
 
 ```ts
-@Controller('users')
+@Controller("users")
 class UsersController {
   constructor(private readonly hcaptchaService: HcaptchaService) {}
 
-  @Post('register')
+  @Post("register")
   async register(@Req() request: Request) {
     try {
-      const token = request.body['h-captcha-response'];
+      const token = request.body["h-captcha-response"];
 
       // returns the hCaptcha JSON response, or throws a HcaptchaException
       const verifyResponse = await this.hcaptchaService.verifyCaptcha(token);
