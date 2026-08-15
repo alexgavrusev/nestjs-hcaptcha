@@ -2,14 +2,8 @@ import { describe, expect, it } from "vitest";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Module } from "@nestjs/common";
 
-import type {
-  HcaptchaOptions,
-  NormalizedHcaptchaOptions,
-} from "./hcaptcha-options.types";
-import {
-  HcaptchaOptionsModule,
-  NORMALIZED_HCAPTCHA_OPTIONS,
-} from "./hcaptcha-options.module";
+import type { HcaptchaOptions, NormalizedHcaptchaOptions } from "./hcaptcha-options.types";
+import { HcaptchaOptionsModule, NORMALIZED_HCAPTCHA_OPTIONS } from "./hcaptcha-options.module";
 import { defaultGetCaptchaData } from "../get-captcha-data";
 
 describe("HcaptchaOptionsModule", () => {
@@ -22,9 +16,7 @@ describe("HcaptchaOptionsModule", () => {
   };
 
   const assertNormalizedOptions = (moduleRef: TestingModule) => {
-    const options = moduleRef.get<NormalizedHcaptchaOptions>(
-      NORMALIZED_HCAPTCHA_OPTIONS,
-    );
+    const options = moduleRef.get<NormalizedHcaptchaOptions>(NORMALIZED_HCAPTCHA_OPTIONS);
 
     expect(options.secret).toBe(SECRET);
     expect(options.sitekey).toBe(SITEKEY);

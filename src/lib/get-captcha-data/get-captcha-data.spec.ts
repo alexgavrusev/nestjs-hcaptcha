@@ -30,8 +30,6 @@ describe("defaultGetCaptchaData", () => {
   it("should throw error when there is no `h-captcha-response` request.body field", () => {
     const executionContext = createContext({});
 
-    expect(() => defaultGetCaptchaData(executionContext)).toThrowError(
-      HcaptchaException,
-    );
+    expect(() => defaultGetCaptchaData(executionContext)).toThrowError(HcaptchaException);
   });
 });

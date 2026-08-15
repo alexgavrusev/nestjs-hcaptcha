@@ -94,9 +94,7 @@ describe("HcaptchaService", () => {
   it("should throw exception with cause set to request error if sending the hCaptcha request fails", async () => {
     const requestError = new Error("ECONNREFUSED");
 
-    nock("https://hcaptcha.com")
-      .post("/siteverify")
-      .replyWithError(requestError);
+    nock("https://hcaptcha.com").post("/siteverify").replyWithError(requestError);
 
     const error = await service.verifyCaptcha("token").then(
       () => {

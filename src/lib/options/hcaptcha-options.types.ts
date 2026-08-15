@@ -6,7 +6,5 @@ export type HcaptchaOptions = {
   getCaptchaData?: GetCaptchaData;
 };
 
-export type NormalizedHcaptchaOptions = Required<
-  Pick<HcaptchaOptions, "getCaptchaData">
-> &
+export type NormalizedHcaptchaOptions = Required<Pick<HcaptchaOptions, "getCaptchaData">> &
   HcaptchaOptions;
