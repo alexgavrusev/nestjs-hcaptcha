@@ -31,7 +31,7 @@
     "lint:fix": "pnpm run lint --fix",
     "format:write": "prettier --cache --write .",
     "format:check": "prettier --cache --check .",
-    "release": "bumpp && pnpm publish",
+    "release": "bumpp",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
