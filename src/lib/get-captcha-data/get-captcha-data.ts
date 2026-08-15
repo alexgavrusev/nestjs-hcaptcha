@@ -6,9 +6,7 @@ export type CaptchaData = {
   remoteip?: string;
 };
 
-export type GetCaptchaData = (
-  executionContext: ExecutionContext,
-) => CaptchaData;
+export type GetCaptchaData = (executionContext: ExecutionContext) => CaptchaData;
 
 export const defaultGetCaptchaData: GetCaptchaData = (context) => {
   const request = context.switchToHttp().getRequest();
@@ -16,9 +14,7 @@ export const defaultGetCaptchaData: GetCaptchaData = (context) => {
   const token = request.body["h-captcha-response"];
 
   if (!token) {
-    throw new HcaptchaException(
-      new Error("No hCaptcha token present in request body"),
-    );
+    throw new HcaptchaException(new Error("No hCaptcha token present in request body"));
   }
 
   return {

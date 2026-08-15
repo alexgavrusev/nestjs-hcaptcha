@@ -13,19 +13,11 @@ export class HcaptchaService {
     private readonly options: NormalizedHcaptchaOptions,
   ) {}
 
-  async verifyCaptcha(
-    token: string,
-    remoteip?: string,
-  ): Promise<VerifyResponse> {
+  async verifyCaptcha(token: string, remoteip?: string): Promise<VerifyResponse> {
     let verifyResponse: VerifyResponse;
 
     try {
-      verifyResponse = await verify(
-        this.options.secret,
-        token,
-        remoteip,
-        this.options.sitekey,
-      );
+      verifyResponse = await verify(this.options.secret, token, remoteip, this.options.sitekey);
     } catch (e) {
       throw new HcaptchaException(e);
     }

@@ -1,9 +1,4 @@
-import {
-  type CanActivate,
-  type ExecutionContext,
-  Inject,
-  Injectable,
-} from "@nestjs/common";
+import { type CanActivate, type ExecutionContext, Inject, Injectable } from "@nestjs/common";
 
 import { NORMALIZED_HCAPTCHA_OPTIONS } from "./options";
 import type { NormalizedHcaptchaOptions } from "./options";

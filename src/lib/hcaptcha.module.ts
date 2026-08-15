@@ -1,10 +1,6 @@
 import { type DynamicModule, Module } from "@nestjs/common";
 
-import {
-  HcaptchaOptionsModule,
-  type HcaptchaOptions,
-  type AsyncHcaptchaOptions,
-} from "./options";
+import { HcaptchaOptionsModule, type HcaptchaOptions, type AsyncHcaptchaOptions } from "./options";
 import { HcaptchaService } from "./hcaptcha.service";
 
 @Module({

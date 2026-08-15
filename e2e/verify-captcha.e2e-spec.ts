@@ -1,11 +1,5 @@
 import { beforeEach, describe, it } from "vitest";
-import {
-  Controller,
-  HttpCode,
-  type INestApplication,
-  Module,
-  Post,
-} from "@nestjs/common";
+import { Controller, HttpCode, type INestApplication, Module, Post } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 import nock from "nock";
 import request from "supertest";
@@ -50,14 +44,10 @@ describe("VerifyCaptcha e2e", () => {
   });
 
   it("should return 403 when no hCaptcha token is provided", async () => {
-    await request(app.getHttpServer())
-      .post("/users/register")
-      .send({})
-      .expect(403)
-      .expect({
-        message: "Forbidden",
-        statusCode: 403,
-      });
+    await request(app.getHttpServer()).post("/users/register").send({}).expect(403).expect({
+      message: "Forbidden",
+      statusCode: 403,
+    });
   });
 
   it("should return 403 when the token is invalid", async () => {

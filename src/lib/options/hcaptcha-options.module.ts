@@ -1,24 +1,13 @@
-import {
-  ConfigurableModuleBuilder,
-  Module,
-  type ConfigurableModuleHost,
-} from "@nestjs/common";
+import { ConfigurableModuleBuilder, Module, type ConfigurableModuleHost } from "@nestjs/common";
 
 import { defaultGetCaptchaData } from "../get-captcha-data";
-import type {
-  HcaptchaOptions,
-  NormalizedHcaptchaOptions,
-} from "./hcaptcha-options.types";
+import type { HcaptchaOptions, NormalizedHcaptchaOptions } from "./hcaptcha-options.types";
 
 const PROVIDED_HCAPTCHA_OPTIONS = Symbol("PROVIDED_HCAPTCHA_OPTIONS");
 
-export const NORMALIZED_HCAPTCHA_OPTIONS: symbol = Symbol(
-  "NORMALIZED_HCAPTCHA_OPTIONS",
-);
+export const NORMALIZED_HCAPTCHA_OPTIONS: symbol = Symbol("NORMALIZED_HCAPTCHA_OPTIONS");
 
-const normalizeOptions = (
-  options: HcaptchaOptions,
-): NormalizedHcaptchaOptions => ({
+const normalizeOptions = (options: HcaptchaOptions): NormalizedHcaptchaOptions => ({
   getCaptchaData: defaultGetCaptchaData,
   ...options,
 });
